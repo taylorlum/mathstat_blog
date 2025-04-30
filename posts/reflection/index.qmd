@@ -4,6 +4,9 @@ author: "Taylor Lum"
 date: "2025-04-28"
 ---
 
+TEST
+
+
 A recap of all mini projects from the semester.
 
 # 1
