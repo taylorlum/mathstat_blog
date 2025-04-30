@@ -4,9 +4,6 @@ author: "Taylor Lum"
 date: "2025-04-28"
 ---
 
-TEST
-
-
 A recap of all mini projects from the semester.
 
 # 1
@@ -20,11 +17,18 @@ In this project we simulated the sampling distributions of sample minimums and m
 1. did a lot of simulations in the course
 2. likelihood ratios
 2. random variables?
+3. more simulation 
+3. credible intervals for hypothesis 
+4. means like when we look at expectation??
+4. still trying to model distributions, just different framework
 
 ##how each mini-project ties in with some other mini-projects (note that some mini-projects are more connected than others: you do not need to “connect” every single mini-project with every other mini-project).
 
 1. confidence interval simulations
 2. project 5, writing meaningfully (using words correctly in context)
+3. looking at properties for different n, like in project 1 we had different dist
+3. credible intervals, project 4
+4. 
 
 
 
@@ -32,6 +36,9 @@ In this project we simulated the sampling distributions of sample minimums and m
 
 1. patterns (ex. symmetrical distribution SE)
 2. a lot of things are related ()
+3. importance of not violating assumptions
+4. personal bias in creating priors????
+5. it is important to be intentional and thoughtful with data analysis.
 
 In general: power of simulation
 There are practical applications of stuff that seems very math based and theoretical
