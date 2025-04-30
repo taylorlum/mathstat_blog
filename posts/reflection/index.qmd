@@ -1,0 +1,34 @@
+---
+title: "Reflecting on the Mini Projects"
+author: "Taylor Lum"
+date: "2025-04-28"
+---
+
+A recap of all mini projects from the semester.
+
+# 1
+In this project we simulated the sampling distributions of sample minimums and maximums from different populations.
+
+
+##how each mini-project ties in to other content in the course.
+
+1. tying standard error into variance of prior/posterior distributions
+1. test statistics in general (ex. for CI)
+1. did a lot of simulations in the course
+2. likelihood ratios
+2. random variables?
+
+##how each mini-project ties in with some other mini-projects (note that some mini-projects are more connected than others: you do not need to “connect” every single mini-project with every other mini-project).
+
+1. confidence interval simulations
+2. project 5, writing meaningfully (using words correctly in context)
+
+
+
+##your biggest take-aways from these mini-projects (these should not be copy-pasted from the “take-away” section of any of your original mini-projects: the expectation is that, now that we have gone through the entire course, your take-aways may be more sophisticated now).
+
+1. patterns (ex. symmetrical distribution SE)
+2. a lot of things are related ()
+
+In general: power of simulation
+There are practical applications of stuff that seems very math based and theoretical

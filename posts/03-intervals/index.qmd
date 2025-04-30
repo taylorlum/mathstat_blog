@@ -1,0 +1,221 @@
+---
+title: "Mini Project 3: Simulation to Investigate Confidence Intervals"
+author: "Taylor Lum"
+date: "2025-04-28"
+---
+
+Investigating confidence intervals when we violate assumptions.
+
+**Sample sizes**: 5, 25, 500
+
+**Proportions**: 0.47, 0.88
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+## Function for generating sample proportions
+
+```{r}
+generate_samp_prop <- function(n, p, alpha) {
+  x <- rbinom(1, n, p) # randomly generate number of successes for the sample
+  
+  ## number of successes divided by sample size
+  phat <- x / n
+  
+  ## confidence interval
+  lb <- phat - qnorm(1 - alpha / 2) * sqrt(phat * (1 - phat) / n)
+  ub <- phat + qnorm(1 - alpha / 2) * sqrt(phat * (1 - phat) / n)
+  
+  prop_df <- tibble(phat, lb, ub)
+  return(prop_df)
+}
+```
+
+## Sample Size 500, Proportion 0.47
+
+```{r}
+n <- 500   # sample size
+p <- 0.47   # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_ll <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_large_low <- prop_ci_df_ll %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+500(0.47) = 235 \> 10 $\therefore$ satisfied
+
+500(1 - 0.47) = 265 \> 10 $\therefore$ satisfied
+
+## Sample Size 500, Proportion 0.88
+
+```{r}
+n <- 500   # sample size
+p <- 0.88  # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_lh <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_large_high <- prop_ci_df_lh %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+500(0.88) = 440 \> 10 $\therefore$ satisfied
+
+500(1 - 0.88) = 60 \> 10 $\therefore$ satisfied
+
+## Sample Size 25, Proportion 0.47
+
+```{r}
+n <- 25   # sample size
+p <- 0.47  # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_ml <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_mid_low <- prop_ci_df_ml %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+25(0.47) = 11.75 \> 10 $\therefore$ satisfied
+
+25(1 - 0.47) = 13.25 \> 10 $\therefore$ satisfied
+
+## Sample Size 25, Proportion 0.88
+
+```{r}
+n <- 25   # sample size
+p <- 0.88  # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_mh <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_mid_high <- prop_ci_df_mh %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+25(0.88) = 22 \> 10
+
+25(1 - 0.88) = 3 \< 10 $\therefore$ not satisfied
+
+## Sample Size 5, Proportion 0.47
+
+```{r}
+n <- 5   # sample size
+p <- 0.47  # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_sl <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_small_low <- prop_ci_df_sl %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+5(0.47) = 2.35 \< 10 $\therefore$ not satisfied
+
+5(1 - 0.47) = 2.65 \< 10 $\therefore$ not satisfied
+
+## Sample Size 5, Proportion 0.88
+
+```{r}
+n <- 5   # sample size
+p <- 0.88  # population proportion
+alpha <- 0.1 
+
+## number of CIs
+n_sim <- 5000
+
+prop_ci_df_sh <- map(1:n_sim, 
+    \(i) generate_samp_prop(n = n, p = p, alpha = alpha)) |>
+  bind_rows()
+```
+
+```{r}
+summary_small_high <- prop_ci_df_sh %>%
+  mutate(width = ub - lb,
+         covered = if_else(p > lb & p < ub, 1, 0)) %>%
+  summarise(avg_width = round(mean(width), 4), cov_rate = mean(covered))
+```
+
+**Large sample assumption:**
+
+5(0.88) = 4.4 \< 10 $\therefore$ not satisfied
+
+5(1 - 0.88) = 0.6 \< 10 $\therefore$ not satisfied
+
+|   |   | $n = 5$ | $n = 25$ | $n = 500$ |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+| $p = 0.47$ | Coverage Rate | `r summary_small_low$cov_rate` | `r summary_mid_low$cov_rate` | `r summary_large_low$cov_rate` |
+| $p = 0.88$ | Coverage Rate | `r summary_small_high$cov_rate` | `r summary_mid_high$cov_rate` | `r summary_large_high$cov_rate` |
+|  |  |  |  |  |
+| $p = 0.47$ | Average Width | `r summary_small_low$avg_width` | `r summary_mid_low$avg_width` | `r summary_large_low$avg_width` |
+| $p = 0.88$ | Average Width | `r summary_small_high$avg_width` | `r summary_mid_high$avg_width` | `r summary_large_high$avg_width` |
+
+: Table of Results {.striped .hover}
+
+## Findings
+
+The large sample assumption is satisfied for three out of the six settings (both n = 500, n = 25 where p = 0.47). For the three settings in which it is satisfied, the coverage rate is about 0.9 or very close to it, which is what we wanted given that we were attempting to simulate a 90% confidence interval. For the cases in which the large sample assumption is not satisfied, the coverage rates are less than 0.9.
+
+For the interval widths, the general trend is that the width decreases as sample size increases. The width of the interval is determined by the margin of error term of the confidence interval calculation $z_{1-\alpha/2}*\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$. The $z_{1-\alpha/2}$ part is the same for all settings, but the $\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ part varies between them. When n is small, this increases the value of this term, which makes sense because when the sample size is small each 1 and 0 (success/failure) has a greater impact on that sample’s proportion, so it could tend to change a lot. The resulting high margin of error and wide interval helps account for this tendency. Back to the coverage rate, the $\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ only approximates the $SE(\hat{p})$ if n is large, and since it isn’t for the low coverage cases, it makes sense that the interval itself is off.
+
+Despite not satisfying the large sample assumption, the coverage rate for the n = 5 with p = 0.47 setting actually wasn’t as far off as I thought it would be, and this is seen in its wide interval. The width of about 0.63 (depends on the simulation) covers a lot of the whole range of 0-1, which matches the high coverage rate. With a sample size of 5, there are only 6 possible $\hat{p}$ values we can get (0, $\frac{1}{5}$,…,$\frac{5}{5}$), but since it’s almost equally likely to get a 0 or 1 in this setting, you don’t really tend to get one over the other, so maybe the interval “widens” to account for this uncertainty. This is another instance of what I explained above in the interval width section, but very extreme since the population proportion is close to 0.5, which maximizes the $\hat{p}(1-\hat{p})$ part. For the n = 5 and p = 0.88 setting I think the interval might be narrower than the p = 0.47 one because of the population proportion. With p = 0.88, it is not that unrealistic to get five 1’s in the sample, so the margin of error for those becomes 0 since $\hat{p}(1-\hat{p})$ will be 0. This makes the upper and lower bounds both 1, which makes the interval width also 0. If this happens enough times, this could significantly decrease the average width. I actually checked for one of the simulations and it was 2662 times, over half of the simulated samples!
+
+Something to note is that the “bounds” of the intervals were sometimes less than 0 or greater than 1. Both could never happen, but I think the technical width provided by the margin of error and not the actual value of the bounds is what was important about this project. But overall, the general trend is that the coverage rate is lower than the expected amount when the large sample assumption is not satisfied, and interval width tends to increase as sample size decreases.
