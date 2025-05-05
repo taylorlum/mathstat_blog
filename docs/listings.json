@@ -3,7 +3,6 @@
     "listing": "/index.html",
     "items": [
       "/posts/reflection/index.html",
-      "/posts/post-with-code/index.html",
       "/posts/05-hypothesis/index.html",
       "/posts/04-bayesian/index.html",
       "/posts/03-intervals/index.html",
