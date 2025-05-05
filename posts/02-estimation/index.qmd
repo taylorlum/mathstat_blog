@@ -1,7 +1,7 @@
 ---
 title: "Mini Project 2: A Meaningful Story"
 author: "Taylor Lum"
-date: "2025-04-28"
+date: "2025-02-19"
 image: "appleton.jpg"
 ---
 

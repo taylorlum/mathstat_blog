@@ -1,7 +1,7 @@
 ---
 title: "Mini Project 4: Bayesian Analysis"
 author: "Taylor Lum"
-date: "2025-04-28"
+date: "2025-04-02"
 ---
 
 Using Bayesian analysis to investigate the probability that Nadal wins a point on his own serve against Novak Djokovic at the French Open.

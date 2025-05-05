@@ -1,7 +1,7 @@
 ---
 title: "Mini Project 1: Sampling Distribution of the Sample Minimum and Maximum"
 author: "Taylor Lum"
-date: "2025-04-28"
+date: "2025-01-29"
 ---
 
 ```{r include=FALSE}
